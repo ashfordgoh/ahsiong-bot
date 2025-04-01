@@ -1,5 +1,6 @@
 # Ignore environment variables and secrets
 .env
+venv/
 
 # Bytecode and cache files
 __pycache__/
