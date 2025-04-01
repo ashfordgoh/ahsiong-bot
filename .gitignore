@@ -1,0 +1,16 @@
+# Ignore environment variables and secrets
+.env
+
+# Bytecode and cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# SQLite database or temp data files
+*.db
+
+# VS Code settings (optional)
+.vscode/
+
+# OS system files
+.DS_Store

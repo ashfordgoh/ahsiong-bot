@@ -4,8 +4,6 @@ import sqlite3
 from openai import OpenAI
 from fuzzywuzzy import fuzz
 from typing import Dict, List
-# import tkinter as tk
-# from tkinter import messagebox, simpledialog
 import insert_data  # Import for inserting initial data
 from dotenv import load_dotenv
 load_dotenv()
@@ -229,63 +227,6 @@ class DatabaseManager:
             cursor.execute('SELECT type, ingredients FROM allergies')
             return {row[0]: json.loads(row[1]) for row in cursor.fetchall()}
 
-# GUI Code with Tkinter
-# class AhSiongBotGUI:
-#     def __init__(self, root):
-#         self.root = root
-#         self.root.title("Ah Siong Bot")
-        
-#         # Add header label
-#         header_label = tk.Label(root, text="AhSiongBot", font=("Helvetica", 16, "bold"))
-#         header_label.pack(pady=10)
-        
-#         # Create main frame for layout organization
-#         frame = tk.Frame(root)
-#         frame.pack(padx=10, pady=10)
-        
-#         # Styled chatbox with scrollbar
-#         self.chatbox = tk.Text(frame, wrap=tk.WORD, height=20, width=60, font=("Arial", 12), bg="#EAEAEA", fg="#333", bd=2, relief="solid")
-#         self.chatbox.grid(row=0, column=0)
-#         scrollbar = tk.Scrollbar(frame, command=self.chatbox.yview)
-#         scrollbar.grid(row=0, column=1, sticky="ns")
-#         self.chatbox.config(yscrollcommand=scrollbar.set)
-        
-#         # Configure chat bubble tags for messages
-#         self.chatbox.tag_configure("user_msg", background="#D1F0F1", foreground="#000000", font=("Arial", 12), justify="left")
-#         self.chatbox.tag_configure("bot_msg", background="#F1F1F1", foreground="#000000", font=("Arial", 12), justify="left")
-#         self.chatbox.config(spacing1=5, spacing2=5, spacing3=5)
-        
-#         # Entry field and send button within the frame
-#         self.entry = tk.Entry(frame, width=50, font=("Arial", 12))
-#         self.entry.grid(row=1, column=0, pady=10)
-#         self.send_button = tk.Button(frame, text="Send", command=self.send_message)
-#         self.send_button.grid(row=1, column=1, padx=5, pady=10)
-        
-#         # (Theme toggle button removed)
-        
-#         # Ask for user name and personalize the greeting
-#         user_name = simpledialog.askstring("User Info", "What's your name?")
-#         self.chatbox.insert(tk.END, f"Hello {user_name}! I’m Ah Siong Bot! How can I help you today?\n", "bot_msg")
-        
-#         self.checker = AllergyChecker()
-    
-#     def send_message(self):
-#         user_query = self.entry.get()
-#         self.chatbox.insert(tk.END, f"You: {user_query}\n", "user_msg")
-#         response = process_user_query(user_query)
-#         self.chatbox.insert(tk.END, f"Ah Siong Bot: {response}\n", "bot_msg")
-#         # (Notification sound removed)
-#         self.entry.delete(0, tk.END)
-#         self.chatbox.yview(tk.END)
-    
-#     def switch_theme(self, theme="light"):
-#         if theme == "dark":
-#             self.chatbox.config(bg="#2E2E2E", fg="#FFFFFF")
-#             self.entry.config(bg="#2E2E2E", fg="#FFFFFF")
-#         else:
-#             self.chatbox.config(bg="#FFFFFF", fg="#000000")
-#             self.entry.config(bg="#FFFFFF", fg="#000000")
-
 def process_user_query(user_query: str):
     # Step 1: Use ChatGPT to classify the intent
     intent_classifier = ChatGPTIntentClassifier()
@@ -374,14 +315,3 @@ def call_chatgpt_to_format(response_data, query_info):
     )
 
     return formatted_response.choices[0].message.content.strip()
-
-# # Main application
-# def main():
-#     checker = AllergyChecker()
-#     checker.insert_data_if_needed()
-#     root = tk.Tk()
-#     app = AhSiongBotGUI(root)
-#     root.mainloop()
-
-# if __name__ == "__main__":
-#     main()
